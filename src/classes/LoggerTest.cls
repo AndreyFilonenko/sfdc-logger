@@ -44,4 +44,21 @@ private class LoggerTest {
         System.assertEquals(adminUser.Id, log.Running_User__c);
         System.assertNotEquals(null, log.Logged_at__c);
     }
+
+    @isTest
+    private static void testLogSpecified() {
+        Test.startTest();
+        Logger.logSuccess('Test Success message');
+        Logger.logError('Test Error message');
+        Logger.logInfo('Test Info message');
+        Logger.commitLogs();
+        Test.stopTest();
+        
+        Integer logsCount = [
+            SELECT COUNT()
+            FROM Log__c
+        ];
+
+        System.assertEquals(3, logsCount);
+    }
 }
