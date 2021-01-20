@@ -71,10 +71,6 @@ jobs:
             command: |
                 rm assets/server.key
         - run: 
-            name: Convert MDAPI source to SFDX
-            command: |
-                sfdx force:mdapi:convert --rootdir src --outputdir force-app
-        - run: 
             name: Push Source
             command: |
                 sfdx force:source:push -u circle_build_$CIRCLE_BUILD_NUM
