@@ -77,7 +77,8 @@ jobs:
         - run: 
             name: Push Source
             command: |
-                sfdx force:source:push -u circle_build_$CIRCLE_BUILD_NUM
+                # sfdx force:source:push -u circle_build_$CIRCLE_BUILD_NUM
+                sfdx force:source:deploy -p force-app
         - run:
             name: Run Apex Tests
             command: |
