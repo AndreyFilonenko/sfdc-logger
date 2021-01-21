@@ -1,6 +1,6 @@
 public class Logger {
     private static final Boolean IS_LOGGER_ENABLED = true;
-    // private static final Boolean IS_LOGGER_ENABLED = TS_config__c.getOrgDefaults().Is_Logger_Enabled__c;
+    // private static final Boolean IS_LOGGER_ENABLED = YOUR_CUSTOM_SETTING.getOrgDefaults().Is_Logger_Enabled__c;
     private static List<Log__c> logs = new List<Log__c>();
 
     public static void log(Logger.LogSeverity severity, String message) {
