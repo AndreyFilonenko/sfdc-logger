@@ -1,7 +1,7 @@
 @IsTest
 private class LoggerTest {
-    private static String ADMIN_USER_NAME = 'adm.user@test.com';
-    private static String STANDARD_USER_NAME = 'std.user@test.com';
+    private static final String ADMIN_USER_NAME = 'adm.user@test.com';
+    private static final String STANDARD_USER_NAME = 'std.user@test.com';
 
     @TestSetup
     private static void makeData() {
