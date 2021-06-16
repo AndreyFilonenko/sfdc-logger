@@ -50,12 +50,12 @@ try {
 }
 ```
 
-### Additional features
-* You can easily add an on-off switch to the logger functionality by using the custom setting (checkbox):
-    1. Create a new hierarchy custom setting or use the existing one.
-    2. Add new checkbox named `Is_Logger_Enabled__c` to it.
-    3. Uncomment line 3 in Logger class and replace the `YOUR_CUSTOM_SETTING` with your custom setting name, remove line 2.
-    4. You can integrate the logger switch in any other way you want.
+### Configuration and feature enablement
+* For the convenience of usage and determining the logging events was included a hierarchy custom setting support:
+    1. Go the the Setup -> Custom Settings -> Logger Config
+    2. Define a default logging behavior using org-wide custom setting values.
+    3. In case of a specific user or profile should be logged create a custom setting record for them and define a logging level using the checkboxes.
+* You can integrate the logger switch in any other suitable way.
 
 
 ## License
