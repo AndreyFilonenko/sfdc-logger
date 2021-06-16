@@ -1,15 +1,20 @@
-public class Logger {
-    private static final Boolean IS_LOGGER_ENABLED = true;
-    // private static final Boolean IS_LOGGER_ENABLED = YOUR_CUSTOM_SETTING.getOrgDefaults().Is_Logger_Enabled__c;
+public without sharing class Logger {
+    private static final Logger_Config__c LOGGER_CONFIG = Logger_Config__c.getInstance();
     private static List<Log__c> logs = new List<Log__c>();
 
     public static void log(Logger.LogSeverity severity, String message) {
-        Log__c log = new Log__c();
-        log.Severity__c = severity.name();
-        log.Message__c = message;
-        log.Running_User__c = UserInfo.getUserId();
-        log.Logged_at__c = DateTime.now();
-        logs.add(log);
+        if (isEnabled(severity)) {
+            Log__c log = new Log__c();
+            log.Severity__c = severity.name();
+            log.Message__c = message;
+            log.Running_User__c = UserInfo.getUserId();
+            log.Logged_at__c = DateTime.now();
+            logs.add(log);
+        }
+    }    
+
+    public static void logDebug(String message) {
+        log(Logger.LogSeverity.DEBUG, message);
     }
 
     public static void logInfo(String message) {
@@ -25,9 +30,31 @@ public class Logger {
     }
 
     public static void commitLogs() {
-        if (IS_LOGGER_ENABLED && !logs.isEmpty()) {
+        if (!logs.isEmpty()) {
             insert logs;
         }
+    }
+
+    private static Boolean isEnabled(Logger.LogSeverity severity) {
+        Boolean isEnabled = false;
+        if (LOGGER_CONFIG.Is_Logger_Enabled__c) {
+            switch on severity {
+                when DEBUG {
+                    isEnabled = LOGGER_CONFIG.Is_Debug_Enabled__c;
+                }
+                when INFO {
+                    isEnabled = LOGGER_CONFIG.Is_Info_Enabled__c;
+                }
+                when SUCCESS {
+                    isEnabled = LOGGER_CONFIG.Is_Success_Enabled__c;
+                }
+                when ERROR {
+                    isEnabled = LOGGER_CONFIG.Is_Error_Enabled__c;
+                }
+            }
+        }
+
+        return isEnabled;
     }
 
     public enum LogSeverity {
