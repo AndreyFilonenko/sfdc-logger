@@ -3,6 +3,8 @@
   "edition": "Developer",
   "features": [],
   "settings": {
-    "enableDisableParallelApexTesting" : true
+    "apexSettings": {
+      "enableDisableParallelApexTesting" : true
+    }
   }
 }
