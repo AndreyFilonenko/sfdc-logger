@@ -3,7 +3,7 @@ public without sharing class Logger {
     private static List<Log__c> logs = new List<Log__c>();
 
     public static void log(Logger.LogSeverity severity, String message) {
-        if (isEnabled(severity)) {
+        if (severity != null && isEnabled(severity)) {
             Log__c log = new Log__c();
             log.Severity__c = severity.name();
             log.Message__c = message;
@@ -32,6 +32,7 @@ public without sharing class Logger {
     public static void commitLogs() {
         if (!logs.isEmpty()) {
             insert logs;
+            logs.clear();
         }
     }
 
